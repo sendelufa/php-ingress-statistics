@@ -96,6 +96,7 @@ class Ingress
 		$stats = array();
 		$enl_players = array();
 		$res_players = array();
+		$first_player = ""; //игрок чей фракции занял первое место по мю в цикле
 
 		$js_series = array();
 		$js_categories = array();
@@ -122,17 +123,22 @@ class Ingress
 			$res_mu = trim($str[2]);
 			$enl_player = trim($str[3]);
 			$res_player = trim($str[4]);
+			$first_player = trim($str[5]); 	//необязательный параметр, 
+							//ввод требуется только для циклов когда цикл выиграла, к примеру ENL, а максимум мю набрал игрок RES
+							//формат "enl" или "res"
+			if (empty($first_player)) //если не введено, то вычислить какая фракция победила и присвоить первое место соотв игроку
+			{$first_player = ($enl_mu > $res_mu ? "enl" : "res");}
 
 			if (!empty($enl_player)) {
 				$enl_players[] = $enl_player;
-				$top_players[] = $enl_player;
 				$players[$enl_player] = 'ENL';
+				if ($first_player == "enl") $top_players[] = $enl_player; // если топовый игрок ENL, то добавить в топ
 			}
 
 			if (!empty($res_player)) {
 				$res_players[] = $res_player;
 				$players[$res_player] = 'RES';
-				$top_players[] = $res_player;
+				if ($first_player == "res") $top_players[] = $res_player; // если топовый игрок RES, то добавить в топ
 			}
 
 
