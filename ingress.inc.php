@@ -131,7 +131,7 @@ class Ingress
 
 			if (!empty($enl_player)) {
 				$enl_players[] = $enl_player;
-				$top_players[] = $enl_player;
+				$players[$res_player] = 'ENL';
 				if ($first_player == "enl") $top_players[] = $enl_player; // если топовый игрок ENL, то добавить в топ
 			}
 
